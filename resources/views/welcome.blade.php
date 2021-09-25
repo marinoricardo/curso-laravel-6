@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                {{$nome}}
+                Curso de LAravel
                 </div>
 
                 <div class="links">
