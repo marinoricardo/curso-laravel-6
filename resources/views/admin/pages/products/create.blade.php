@@ -5,20 +5,10 @@
 @section('content')
     <h1>Cadastrar novos Produto</h1>
 
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+    @include('admin.alerts.alerts')
 
-    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
-        @csrf 
-        <input type="text" name="name" placeholder="Nome: " value="{{ old('name') }}">
-        <input type="text" name="description" placeholder="Descricao: " value="{{ old('description') }}">
-        <input type="file" name="photo">
-        <button type="submit">Enviar</button>
+    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" class="form-control">
+        @include('admin.pages.products.partials.form')
 
     </form>
 

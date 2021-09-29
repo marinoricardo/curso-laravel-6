@@ -3,15 +3,12 @@
 @section('title', 'Cadastrar Produto')
 
 @section('content')
-    <h1>Editando Produto {{ $id }}</h1>
+    <h1>Editando Produto {{ $product->id }}</h1>
 
-    <form action="{{ route('products.update', $id) }}" method="post">
-        @csrf 
-        {{-- <input type="hidden" name="_method" value="PUT"> --}}
+    <form action="{{ route('products.update',$product->id) }}" method="post" enctype="multipart/form-data" class="form-control">
         @method('PUT')
-        <input type="text" name="nome" placeholder="Nome: ">
-        <input type="text" name="descricao" placeholder="Descricao: ">
-        <button type="submit">Enviar</button>
+
+        @include('admin.pages.products.partials.form')
 
     </form>
 

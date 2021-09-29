@@ -46,6 +46,7 @@ Route::group([
 // Route::get('products', 'ProductController@index')->name('products.index');
 // Route::post('products', 'ProductController@store')->name('products.store');
 
+Route::any('products/search', 'ProductController@search')->name('products.search');
 Route::resource('products', 'ProductController'); //->middleware('auth');
 
 
@@ -73,3 +74,7 @@ Route::get('/any', function(){
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
