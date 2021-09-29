@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProduct;
+use App\Models\Product;
 use App\Models\User;
 
 class ProductController extends Controller
@@ -22,8 +24,11 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $teste = '<h1>Ola</h1>';
-        return view('teste', compact('teste'));
+        // $products = Product::all();
+        $products = Product::paginate(10);
+        return view('admin.pages.products.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -34,17 +39,33 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return view('admin.pages.products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreProduct  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        //
+        // Capturar valores usando um request
+        // dd($request->all()); // pegar todos os dados
+        // dd($request->only(['nome'])); // pegar dados especificos
+        // dd($request->input('nome'));
+        // dd($request->except('_token'));
+        // dd();
+        // $request->validate([
+        //     'nome' => 'required | min:3 | max:250',
+        //     'descricao' => 'required | min:3 | max:250',
+        //     'photo' => 'required | image',
+        // ]);
+        // dd('Ok');
+        if($request->file('photo')->isValid()){
+            $nameFile = $request->nome . '.' . $request->photo->extension();
+            dd($request->file('photo')->storeAs('products', $nameFile));
+        }
     }
 
     /**
@@ -67,6 +88,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        return view('admin.pages.products.edit', compact('id'));
     }
 
     /**
@@ -79,6 +101,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        dd('Editando produto...');
     }
 
     /**
